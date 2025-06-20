@@ -1,0 +1,17 @@
+<div class="lineup-prediction-container">
+  <h2>Lineup Prediction</h2>
+  <label for="phase">Game Phase:</label>
+  <select id="phase" [(ngModel)]="phase">
+    <option value="powerplay">Powerplay</option>
+    <option value="middle">Middle Overs</option>
+    <option value="death">Death Overs</option>
+  </select>
+  <button (click)="getLineup()">Get Lineup</button>
+
+  <div *ngIf="recommendedPlayer">
+    <h3>Predicted Lineup:</h3>
+    <ul>
+      {{ this.recommendedPlayer }}
+    </ul>
+  </div>
+</div>

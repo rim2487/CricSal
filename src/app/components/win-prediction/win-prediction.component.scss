@@ -1,0 +1,28 @@
+.win-prediction-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #ddd;
+      cursor: default;
+    }
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+}

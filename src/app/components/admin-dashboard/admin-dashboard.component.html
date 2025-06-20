@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+  <div class="sidebar">
+    <h2>Admin Dashboard</h2>
+    <nav>
+      <ul>
+        <li>
+          <button (click)="setView('teams')" [class.active]="view === 'teams'" class="sidebar-btn">Teams</button>
+        </li>
+        <li>
+          <button (click)="setView('matches')" [class.active]="view === 'matches'" class="sidebar-btn">Matches</button>
+        </li>
+        <li>
+          <button (click)="setView('players')" [class.active]="view === 'players'" class="sidebar-btn">Players</button>
+        </li>
+        <li>
+          <button (click)="setView('assignments')" [class.active]="view === 'assignments'" class="sidebar-btn">Player Assignments</button>
+        </li>
+        <li>
+          <button (click)="setView('scores')" [class.active]="view === 'scores'" class="sidebar-btn">Live Score</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="content">
+    <div class="content-header">
+      <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
+    </div>
+
+    <div [ngSwitch]="view">
+      <app-team-management *ngSwitchCase="'teams'"></app-team-management>
+      <app-match-management *ngSwitchCase="'matches'"></app-match-management>
+       <app-player-management *ngSwitchCase="'players'"></app-player-management>
+       <app-player-assignment *ngSwitchCase="'assignments'"></app-player-assignment>
+       <app-game-view *ngSwitchCase="'scores'"></app-game-view>
+    </div>
+  </div>
+</div>

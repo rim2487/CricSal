@@ -1,0 +1,52 @@
+<div class="player-management">
+  <h2 class="text-xl font-semibold mb-4">Player Management</h2>
+
+  <button (click)="openAddPlayerForm()" class="btn btn-primary mb-4">Add Player</button>
+
+  <div *ngIf="players.length > 0">
+    <table class="table-auto w-full border-collapse">
+      <thead>
+      <tr>
+        <th class="border px-4 py-2">Name</th>
+        <th class="border px-4 py-2">Role</th>
+        <th class="border px-4 py-2">Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let player of players">
+        <td class="border px-4 py-2">{{ player.name }}</td>
+        <td class="border px-4 py-2">{{ player.role }}</td>
+        <td class="border px-4 py-2">{{ player.created_at | date:'short' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="players.length === 0">
+    <p>No players available.</p>
+  </div>
+
+  <!-- Add Player Form -->
+  <div *ngIf="isAddPlayerFormVisible" class="modal">
+    <div class="modal-content">
+      <h3>Add Player</h3>
+      <form (ngSubmit)="addPlayer()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input id="name" [(ngModel)]="newPlayer.name" name="name" required class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <select id="role" [(ngModel)]="newPlayer.role" name="role" required class="form-input">
+            <option value="Batsman">Batsman</option>
+            <option value="Bowler">Bowler</option>
+            <option value="All rounder">All rounder</option>
+            <option value="Wicket keeper batsman">Wicket keeper batsman</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Player</button>
+        <button type="button" (click)="closeAddPlayerForm()" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

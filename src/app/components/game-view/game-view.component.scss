@@ -1,0 +1,16 @@
+.game-view-container {
+  display: flex;       // Use flexbox for layout
+  flex-direction: column; // Stack elements vertically
+  align-items: center;  // Center horizontally
+  gap: 20px;            // Spacing between elements
+  padding: 20px;
+
+  app-score-input, app-win-prediction {
+    width: 80%;       // Or a fixed width
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #f9f9f9; // Example background
+  }
+}

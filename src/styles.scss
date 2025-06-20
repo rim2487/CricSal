@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* If you want to use a gradient: */
+body, :root {
+  //background: linear-gradient(to bottom, #c7e5ed, #e54c4c); /* Light blue to white gradient */
+}

@@ -1,0 +1,15 @@
+<div class="win-prediction-container">
+  <h2>Win Prediction</h2>
+  <div *ngIf="loading">
+    <p>Predicting win probability. Please wait...</p>
+  </div>
+
+  <div *ngIf="winProbability && !loading">
+    <h3>Win Probability:</h3>
+    <p>{{ winProbability }}</p>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <p class="error-message">{{ errorMessage }}</p>
+  </div>
+</div>

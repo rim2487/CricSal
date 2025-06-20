@@ -1,0 +1,19 @@
+<div class="center-container">
+  <form class="login-form" (ngSubmit)="login()">
+    <h2 class="form-title">Cricsal Login</h2>
+
+    <input [(ngModel)]="username" name="username" placeholder="Username" required />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
+
+    <div class="role-toggle">
+      <label [class.active]="role === 'user'">
+        <input type="radio" name="role" [(ngModel)]="role" value="user" /> User
+      </label>
+      <label [class.active]="role === 'admin'">
+        <input type="radio" name="role" [(ngModel)]="role" value="admin" /> Admin
+      </label>
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+</div>

@@ -1,0 +1,5 @@
+<div class="match-view-container" *ngIf="match">
+  <h2>{{ match.team1 }} vs {{ match.team2 }}</h2>
+  <p><strong>Score:</strong> {{ match.totalRuns }}/{{ match.wickets }}</p>
+  <p><strong>Overs:</strong> {{ match.overs }}</p>
+</div>

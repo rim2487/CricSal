@@ -1,0 +1,40 @@
+<div class="score-input-container">
+  <h2><b>Score Input</b></h2>
+
+  <div class="batsmen-display">
+    <div class="batsman" *ngFor="let batsman of batsmen">
+      <span class="batsman-name">{{ batsman.name }}</span>
+      <span *ngIf="batsman.onStrike" class="on-strike-indicator">(On Strike)</span>
+    </div>
+  </div>
+
+  <div class="scoring-section" *ngIf="isAdmin()">
+    <button (click)="score(0)">0</button>
+    <button (click)="score(1)">1</button>
+    <button (click)="score(2)">2</button>
+    <button (click)="score(3)">3</button>
+    <button (click)="score(4)" class="boundary-4">4</button>
+    <button (click)="score(6)" class="boundary-6">6</button>
+    <button (click)="wide(1)" class="extra">Wide</button>
+    <button (click)="noBall()" class="extra">No Ball</button>
+    <button (click)="bye(1)" class="extra">Bye</button>
+    <button (click)="legBye(1)" class="extra">Leg Bye</button>
+    <button (click)="wicket()" class="wicket">W</button>
+  </div>
+
+  <div class="score-display">
+    <div class="score-item">
+      <span class="score-label">Total Runs</span>
+      <span class="score-value run-value">{{ totalRuns }}</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">Overs</span>
+      <span class="score-value over-value">{{ overs }}.{{ balls }}</span>
+    </div>
+    <div class="score-item">
+      <span class="score-label">Wickets</span>
+      <span class="score-value wicket-value">{{ wickets }}</span>
+    </div>
+  </div>
+
+</div>

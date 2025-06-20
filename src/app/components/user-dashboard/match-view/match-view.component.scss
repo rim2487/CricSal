@@ -1,0 +1,25 @@
+.match-view-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  h2 {
+    margin-bottom: 25px;
+    font-size: 2rem;
+    color: #222;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin: 12px 0;
+    color: #555;
+
+    strong {
+      color: #333;
+    }
+  }
+}

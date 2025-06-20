@@ -1,0 +1,14 @@
+<div class="dashboard-container">
+  <h2>Select a Match</h2>
+  <div class="match-list" *ngIf="matches.length > 0; else noMatches">
+    <div class="match-card" *ngFor="let match of matches">
+      <p><strong>{{ match.team1 }}</strong> vs <strong>{{ match.team2 }}</strong></p>
+      <p>Date: {{ match.date }}</p>
+      <button (click)="viewMatch(match.id)">View Score</button>
+    </div>
+  </div>
+
+  <ng-template #noMatches>
+    <p>No matches available.</p>
+  </ng-template>
+</div>
