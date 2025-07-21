@@ -5,6 +5,7 @@ import {MatchManagementComponent} from './match-management/match-management.comp
 import {PlayerManagementComponent} from './player-management/player-management.component';
 import {PlayerAssignmentComponent} from './player-assignment/player-assignment.component';
 import {GameViewComponent} from '../game-view/game-view.component';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -24,8 +25,16 @@ import {GameViewComponent} from '../game-view/game-view.component';
 export class AdminDashboardComponent {
   view: string = 'teams';
 
+  constructor(private authService: AuthService) {
+  }
+
   setView(view: string) {
     this.view = view;
   }
+
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
 
 }

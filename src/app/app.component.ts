@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
-import {ScoreInputComponent} from './components/score-input/score-input.component';
-import {LineupPredictionComponent} from './components/lineup-prediction/lineup-prediction.component';
-import {WinPredictionComponent} from './components/win-prediction/win-prediction.component';
+import {ScoreInputComponent} from './components/admin-dashboard/score-input/score-input.component';
 import {AuthService} from './services/auth.service';
 import {NgIf} from '@angular/common';
 import {PopupComponent} from './components/common/popup/popup.component';
@@ -11,7 +9,7 @@ import {PopupService} from './services/popup.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, ScoreInputComponent, LineupPredictionComponent, WinPredictionComponent, NgIf, PopupComponent],
+  imports: [RouterModule, ScoreInputComponent, NgIf, PopupComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -34,8 +32,10 @@ export class AppComponent implements OnInit{
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(r => {
+      this.authService.logout();
+        }
+    );
   }
 
 }

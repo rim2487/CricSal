@@ -1,0 +1,82 @@
+<div class="max-w-3xl mx-auto text-xs px-5 py-4 bg-gray-50">
+    <div class="flex justify-end mb-5">
+        <button
+                (click)="fetchMatches()"
+                class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+            Refresh
+        </button>
+    </div>
+
+    <div *ngIf="matches.length === 0" class="text-gray-500 text-center italic py-8">
+        🏏 No matches created yet.
+    </div>
+
+    <div
+            *ngFor="let match of matches"
+            class="bg-white border border-gray-300 rounded-md shadow mb-5 hover:shadow-lg transition duration-200"
+    >
+        <div class="flex justify-between items-center px-5 py-3 border-b border-gray-200">
+            <div>
+                <div class="text-sm font-semibold text-indigo-700">
+                    {{ match.teamA }} <span class="text-gray-400 font-normal mx-1">vs</span> {{ match.teamB }}
+                </div>
+                <div class="mt-1 text-xs text-gray-600">
+                    Overs:
+                    <span class="text-blue-700 font-semibold ml-1">{{ match.overs }}</span>
+                </div>
+            </div>
+
+            <div>
+        <span
+                class="text-xs font-semibold px-3 py-1 rounded-full"
+                [ngClass]="{
+            'bg-yellow-100 text-yellow-700': match.status === 'created',
+            'bg-blue-100 text-blue-700': match.status === 'ongoing',
+            'bg-green-100 text-green-700': match.status === 'completed'
+          }"
+        >
+          {{ match.status | titlecase }}
+        </span>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between px-5 py-4 gap-6">
+            <div class="flex-1 space-y-2 text-gray-700 text-sm">
+                <ng-container *ngIf="match.status === 'completed'">
+                    <div>
+                        <span class="font-semibold text-blue-700">Result:</span>
+                        <span class="text-green-700 font-semibold ml-1">{{ match.result }}</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-red-600">Team A Score:</span>
+                        <span class="ml-1">{{ match.teamAScore }}</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-red-600">Team B Score:</span>
+                        <span class="ml-1">{{ match.teamBScore }}</span>
+                    </div>
+                </ng-container>
+            </div>
+
+            @if (isAdmin()) {
+            <div class="flex flex-col items-end justify-center gap-3 text-right">
+                <button
+                        *ngIf="match.status === 'created'"
+                        (click)="startMatch(match)"
+                        class="bg-green-600 text-white px-4 py-2 rounded text-xs hover:bg-green-700 transition"
+                >
+                    ▶ Start Match
+                </button>
+
+                <button
+                        (click)="deleteMatch(match)"
+                        class="bg-red-600 text-white px-4 py-2 rounded text-xs hover:bg-red-700 transition"
+                >
+                    🗑 Delete Match
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Select Opening Batsmen</h2>
+<mat-dialog-content>
+    <p class="help-text">Please choose two different batsmen.</p>
+
+    <mat-form-field appearance="fill" class="batsman-field">
+        <mat-label>First Batsman</mat-label>
+        <mat-select [(value)]="selectedFirstBatsmanId">
+            <mat-option
+                    *ngFor="let player of data.players"
+                    [value]="player.id"
+                    [disabled]="player.id === selectedSecondBatsmanId"
+            >
+                {{ player.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="batsman-field">
+        <mat-label>Second Batsman</mat-label>
+        <mat-select [(value)]="selectedSecondBatsmanId">
+            <mat-option
+                    *ngFor="let player of data.players"
+                    [value]="player.id"
+                    [disabled]="player.id === selectedFirstBatsmanId"
+            >
+                {{ player.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" (click)="confirmSelection()">Confirm</button>
+</mat-dialog-actions>

@@ -6,3 +6,6 @@
 body, :root {
   //background: linear-gradient(to bottom, #c7e5ed, #e54c4c); /* Light blue to white gradient */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

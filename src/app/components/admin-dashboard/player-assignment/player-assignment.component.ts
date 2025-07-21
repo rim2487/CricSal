@@ -26,7 +26,6 @@ export class PlayerAssignmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTeams();
-    this.loadUnassignedPlayers();
   }
 
   loadTeams(): void {
@@ -34,27 +33,4 @@ export class PlayerAssignmentComponent implements OnInit {
       this.teams = data.teams;
     });
   }
-
-  loadUnassignedPlayers(): void {
-    this.http.get<any>('http://localhost:5000/admin/unassigned-players').subscribe(data => {
-      this.players = data.players;
-    });
-  }
-
-  assignPlayer(): void {
-    if (this.selectedPlayerId && this.selectedTeamId) {
-      this.http.post<any>('http://localhost:5000/admin/assign-player', {
-        player_id: this.selectedPlayerId,
-        team_id: this.selectedTeamId
-      }).subscribe(response => {
-        this.popupService.showPopup(response.message, 'success');
-        this.loadUnassignedPlayers();
-      }, error => {
-        this.popupService.showPopup('Error assigning player', 'error');
-      });
-    } else {
-      this.popupService.showPopup('Please select both a player and a team', 'error');
-    }
-  }
-
 }

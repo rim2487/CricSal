@@ -1,6 +1,19 @@
+import {Phases} from './phases';
+
 export interface Match {
   id: number;
-  team1_id: number;
-  team2_id: number;
-  status: string;
+  teamA: number;
+  teamB: number;
+  teamAPlayers: number[];
+  teamBPlayers: number[];
+  tossWinner: number;
+  tossDecision: 'bat' | 'bowl';
+  overs: number;
+  firstBatsman: number;
+  secondBatsman: number;
+  status: 'created' | 'ongoing' | 'completed';
+  teamAScore: number;
+  teamBScore: number;
+  result: string;
+  phases: Phases
 }

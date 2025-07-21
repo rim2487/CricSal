@@ -1,31 +1,41 @@
-<div class="card p-4 rounded shadow">
-  <h2 class="text-xl font-semibold mb-2">Create Team</h2>
+<div class="card p-6 rounded shadow max-w-md mx-auto">
+    <h3 class="text-2xl font-semibold mb-4 text-center">Create Team</h3>
 
-  <div class="mb-3">
-    <label class="block mb-1">Team Name:</label>
-    <input
-      type="text"
-      [(ngModel)]="teamName"
-      placeholder="Enter team name"
-      class="input"
-    />
-  </div>
+    <div class="mb-4">
+        <label class="block mb-2 font-medium" for="teamName">Team Name:</label>
+        <input
+                id="teamName"
+                type="text"
+                [(ngModel)]="teamName"
+                placeholder="Enter team name"
+                class="input w-full border border-gray-300 rounded px-3 py-2"
+        />
+    </div>
 
-  <button (click)="createTeam()" class="btn">Create</button>
+    <button (click)="createTeam()" class="btn w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        Create
+    </button>
 
-  <p class="mt-3 text-sm text-green-600" *ngIf="message">{{ message }}</p>
+    <p class="mt-3 text-center text-sm text-green-600" *ngIf="message">{{ message }}</p>
 </div>
 
-<h2 class="title">All Teams</h2>
+<section class="max-w-3xl mx-auto mt-10 px-4">
+    <h2 class="title text-2xl font-semibold mb-5 text-center">All Teams</h2>
 
-<div class="teams-container" *ngIf="teams.length > 0; else noTeams">
-  <div class="team-card" *ngFor="let team of teams">
-    <div class="team-name">{{ team.name }}</div>
-    <div class="team-id">ID: {{ team.id }}</div>
-  </div>
-</div>
+    <div
+            class="teams-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+            *ngIf="teams.length > 0; else noTeams"
+    >
+        <div
+                class="team-card p-4 rounded border border-gray-200 shadow-sm flex flex-col justify-center items-center text-center"
+                *ngFor="let team of teams"
+        >
+            <div class="team-name text-lg font-semibold mb-1">{{ team.name }}</div>
+            <div class="team-id text-sm text-gray-500">ID: {{ team.id }}</div>
+        </div>
+    </div>
 
-<ng-template #noTeams>
-  <p>No teams found.</p>
-</ng-template>
-
+    <ng-template #noTeams>
+        <p class="text-center text-gray-600">No teams found.</p>
+    </ng-template>
+</section>

@@ -36,7 +36,7 @@ export class LoginComponent {
             this.router.navigate(['/admin-dashboard']);
             this.popupService.showPopup('Welcome Admin!', 'success');
           } else if (this.role === 'user') {
-            this.router.navigate(['/user-dashboard']);
+            this.router.navigate(['/admin-dashboard']);
             this.popupService.showPopup('Welcome User!', 'success');
           }
         } else {

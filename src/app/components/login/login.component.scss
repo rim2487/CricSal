@@ -1,99 +1,92 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-}
-
-.center-container {
+.login-wrapper {
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 1rem;
 }
 
 .login-form {
+  background: #ffffff;
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow:
+          0 8px 24px rgba(102, 126, 234, 0.3),
+          0 0 0 4px rgba(118, 75, 162, 0.2);
+  width: 350px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background-color: #fff;
-  padding: 24px 32px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  min-width: 280px;
+  gap: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.login-form input {
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4b2a99;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
 }
 
-.login-form input:focus {
-  border-color: #666;
+.input-field {
+  padding: 0.85rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-field:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 8px #764ba2aa;
   outline: none;
 }
 
-.role-toggle {
+.role-selector {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2.5rem;
 }
 
-.role-toggle label {
-  flex: 1;
-  text-align: center;
-  padding: 6px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.role-selector label {
   cursor: pointer;
-  background-color: #f9f9f9;
-  transition: background-color 0.2s ease;
-  margin: 0 4px;
+  padding: 0.75rem 2.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #764ba2;
+  border: 2px solid transparent;
+  user-select: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 2px transparent;
 }
 
-.role-toggle label.active {
-  background-color: #ddd;
-  font-weight: bold;
+.role-selector label:hover {
+  background-color: #f2e7ff;
 }
 
-button[type="submit"] {
-  padding: 10px 16px;
-  font-size: 15px;
-  background-color: #007acc;
-  color: #fff;
-  border: 1px solid #007acc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #005ea2;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.role-toggle {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4px;
-}
-
-.role-toggle label {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  font-size: 14px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  margin: 0 4px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.role-toggle label.active {
-  background-color: #007acc;
+.role-selector label.selected {
+  background-color: #764ba2;
   color: white;
-  border-color: #007acc;
-  font-weight: bold;
+  border-color: #4b2a99;
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.5);
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transition: background 0.4s ease, box-shadow 0.3s ease;
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #4b2a99, #5a67d8);
+  box-shadow: 0 12px 30px rgba(75, 42, 153, 0.6);
 }

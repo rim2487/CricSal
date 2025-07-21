@@ -1,0 +1,210 @@
+<app-player-suggestor
+  [visible]="showPredictionPanel"
+  [predictedBatsmen]="predictedBatsmen"
+  (onSelect)="handleBatsmanSelect($event)"
+  (onCancel)="handleCancel()"
+></app-player-suggestor>
+
+
+@if (!isMatchEnded) {
+    <div class="back-button-container inside">
+        <button mat-stroked-button color="warn" (click)="discardMatch()">
+            Discard
+        </button>
+    </div>
+} @else {
+    <div class="back-button-container inside">
+        <button mat-stroked-button color="warn" (click)="completeMatch()">
+            End Match
+        </button>
+    </div>
+}
+
+
+
+<div class="match-screen">
+  <div class="match-left-top">
+    <section class="score-display" aria-live="polite" aria-atomic="true">
+      <div class="score-item">
+        <span class="score-label">Total Runs</span>
+        <span class="score-value run-value">{{ totalRuns }}</span>
+      </div>
+      <div class="score-item">
+        <span class="score-label">Overs</span>
+        <span class="score-value over-value">{{ currentOvers }}.{{ balls }}</span>
+      </div>
+      <div class="score-item">
+        <span class="score-label">Wickets</span>
+        <span class="score-value wicket-value">{{ wickets }}</span>
+      </div>
+    </section>
+  </div>
+  <div class="left-pane">
+    <section>
+      <div class="ball-history-container">
+        <ng-container *ngFor="let ball of ballHistory">
+      <span
+        class="ball"
+        [ngClass]="{
+          'ball-4': ball === '4',
+          'ball-6': ball === '6',
+          'ball-wicket': ball === 'W',
+          'ball-extra': ball.includes('WD') || ball.includes('NB') || ball.includes('LB') || ball === '.',
+          'ball-separator': ball === '|',
+          'ball-other':
+            ball !== '4' &&
+            ball !== '6' &&
+            ball !== 'W' &&
+            !ball.includes('WD') &&
+            !ball.includes('NB') &&
+            !ball.includes('LB') &&
+            ball !== '.' &&
+            ball !== '|'
+        }"
+      >
+        {{ ball }}
+      </span>
+        </ng-container>
+      </div>
+    </section>
+    <div class="score-input-container">
+      <section *ngIf="match" class="match-info">
+        <p><strong>Match:</strong> {{ match.teamAName }} vs {{ match.teamBName }}</p>
+        <p><strong>Overs:</strong> {{ totalOvers }} </p>
+        <p><strong>Status:</strong> {{ match.status | titlecase }}</p>
+        <p><strong>Innings:</strong> {{ innings === 1 ? 'First Innings' : 'Second Innings' }}</p>
+        <p><strong>Phase:</strong> {{ currentPhase }}</p>
+      </section>
+
+      <section *ngIf="batsmen.length > 0" class="batsmen-display" aria-label="Current batsmen">
+        <div class="batsman" *ngFor="let batsman of batsmen">
+          <span class="batsman-name">{{ batsman.name }}</span>
+          <span *ngIf="batsman.onStrike" class="on-strike-indicator" aria-label="On Strike">(On Strike)</span>
+          <span class="batsman-runs">- Runs: {{ batsman.runs }}</span>
+          <span class="batsman-balls">, Balls: {{ batsman.ballsFaced }}</span>
+        </div>
+      </section>
+
+      <section
+        class="scoring-section"
+        *ngIf="isAdmin() && match?.status === 'ongoing'"
+        aria-label="Scoring Controls"
+      >
+        <button (click)="score(0)">0</button>
+        <button (click)="score(1)">1</button>
+        <button (click)="score(2)">2</button>
+        <button (click)="score(3)">3</button>
+        <button (click)="score(4)" class="boundary-4">4</button>
+        <button (click)="score(6)" class="boundary-6">6</button>
+        <button (click)="wide()" class="extra">Wide</button>
+        <button (click)="noBall()" class="extra">No Ball</button>
+        <button (click)="bye()" class="extra">Bye</button>
+        <button (click)="legBye()" class="extra">Leg Bye</button>
+        <button (click)="wicket()" class="wicket" aria-label="Wicket">W</button>
+      </section>
+
+      <section *ngIf="showExtraRunSelector" class="extra-run-selector">
+        <label>Select additional runs for {{ extraRunType }}:</label>
+        <select [(ngModel)]="selectedExtraRuns">
+          <option *ngFor="let option of extraRunOptions" [value]="option">{{ option }}</option>
+        </select>
+        <button (click)="confirmExtraRuns()">Confirm</button>
+      </section>
+
+      <section *ngIf="innings === 2" class="first-innings-summary">
+        <h3>First Innings Summary</h3>
+        <p><strong>Score:</strong> {{ firstInningsScore }} / {{ firstInningsWickets }}</p>
+        <p><strong>Target:</strong> {{ targetScore }}</p>
+      </section>
+
+
+      <section *ngIf="match?.status === 'completed'" class="match-result" role="region" aria-live="polite">
+        <h3>Match Result</h3>
+
+        <p><strong>Winner:</strong> {{ match.result?.split(' wins')[0] }}</p>
+
+        <p><strong>{{ match.teamAName }}:</strong> {{ match.teamAScore }}/{{ match.teamAWickets }}</p>
+        <p><strong>{{ match.teamBName }}:</strong> {{ match.teamBScore }}/{{ match.teamBWickets }}</p>
+
+        <p><strong>Result:</strong> {{ match.result }}</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Right Pane: Team Lists -->
+  <div class="right-pane">
+    <div class="right-pane">
+      <mat-tab-group>
+        <mat-tab label="{{ battingTeamName }} Batting">
+          <section class="batting-scoreboard" aria-label="Batting team scoreboard">
+            <div class="player-list">
+              <div
+                *ngFor="let player of battingTeamPlayers"
+                [ngClass]="{
+              'player-card': true,
+              out: player.isOut,
+              'not-batted': isYetToBat(player),
+              batting: isPlayerCurrentlyBatting(player.id),
+              batted: hasBatted(player.id) && !isPlayerCurrentlyBatting(player.id) && !player.isOut
+            }"
+              >
+                <span class="player-name">{{ player.name }}</span>
+                <span class="player-runs">{{ player.runs }}({{player.ballsFaced}})</span>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+
+        <mat-tab label="{{ oppositionTeamName }} Bowling">
+          <section class="bowling-scoreboard" aria-label="Bowling team players">
+            <h3>{{ oppositionTeamName }} (Bowling)</h3>
+            <div class="player-list">
+              <div class="player-card" *ngFor="let player of oppositionPlayers">
+                <span class="player-name">{{ player.name }}</span>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+  </div>
+
+    <section *ngIf="showBatsmanSelector" class="batsman-selector">
+        <h3>Select Opening Batsmen <span style="color: red">*</span></h3>
+        <p class="help-text">Please choose two different batsmen to continue.</p>
+
+        <div class="batsman-select-container">
+            <mat-form-field appearance="fill" class="batsman-field">
+                <mat-label>First Batsman</mat-label>
+                <mat-select [(ngModel)]="selectedFirstBatsmanId" name="firstBatsman">
+                    <mat-option
+                            *ngFor="let player of availableOppositionBatters"
+                            [value]="player.id"
+                            [disabled]="player.id === selectedSecondBatsmanId"
+                    >
+                        {{ player.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="batsman-field">
+                <mat-label>Second Batsman</mat-label>
+                <mat-select [(ngModel)]="selectedSecondBatsmanId" name="secondBatsman">
+                    <mat-option
+                            *ngFor="let player of availableOppositionBatters"
+                            [value]="player.id"
+                            [disabled]="player.id === selectedFirstBatsmanId"
+                    >
+                        {{ player.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="confirmOpenersSelection()">
+            Confirm
+        </button>
+    </section>
+
+</div>
