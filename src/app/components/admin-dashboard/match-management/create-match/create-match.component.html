@@ -1,4 +1,5 @@
-<div *ngIf="isModalVisible" class="modal match-modal flex items-center justify-center fixed inset-0 bg-black bg-opacity-50 z-50">
+<div *ngIf="isModalVisible"
+     class="modal match-modal flex items-center justify-center fixed inset-0 bg-black bg-opacity-50 z-50">
     <div class="modal-content match-form bg-white rounded-lg shadow-lg max-w-lg w-full p-6 overflow-auto max-h-[90vh]">
         <h2 class="text-2xl font-semibold mb-6 text-center">Create Match</h2>
         <form (ngSubmit)="createMatch()" class="space-y-6">
@@ -6,7 +7,8 @@
             <div class="form-section grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Select Team A</mat-label>
-                    <mat-select [(ngModel)]="match.teamA" name="teamA" required (selectionChange)="onTeamAChange($event.value)">
+                    <mat-select [(ngModel)]="match.teamA" name="teamA" required
+                                (selectionChange)="onTeamAChange($event.value)">
                         <mat-option *ngFor="let team of teams" [value]="team.id" [disabled]="team.id === match.teamB">
                             {{ team.name }}
                         </mat-option>
@@ -15,7 +17,8 @@
 
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Select Team B</mat-label>
-                    <mat-select [(ngModel)]="match.teamB" name="teamB" required (selectionChange)="onTeamBChange($event.value)">
+                    <mat-select [(ngModel)]="match.teamB" name="teamB" required
+                                (selectionChange)="onTeamBChange($event.value)">
                         <mat-option *ngFor="let team of teams" [value]="team.id" [disabled]="team.id === match.teamA">
                             {{ team.name }}
                         </mat-option>
@@ -43,7 +46,8 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <small class="block mt-1 text-gray-600">{{ match.teamAPlayers.length }} / 11 players selected</small>
+                    <small class="block mt-1 text-gray-600">{{ match.teamAPlayers.length }} / 11 players
+                        selected</small>
                 </div>
 
                 <div>
@@ -59,7 +63,8 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <small class="block mt-1 text-gray-600">{{ match.teamBPlayers.length }} / 11 players selected</small>
+                    <small class="block mt-1 text-gray-600">{{ match.teamBPlayers.length }} / 11 players
+                        selected</small>
                 </div>
             </div>
 
@@ -67,7 +72,8 @@
                 <div>
                     <h4 class="text-lg font-medium mb-2">Toss Winner</h4>
                     <mat-form-field appearance="fill" class="w-full">
-                        <mat-select [(ngModel)]="match.tossWinner" name="tossWinner" required (selectionChange)="loadPhasePredictions(battingTeamPlayers)">
+                        <mat-select [(ngModel)]="match.tossWinner" name="tossWinner" required
+                                    (selectionChange)="loadPhasePredictions(battingTeamPlayers)">
                             <mat-option [value]="match.teamA">Team A</mat-option>
                             <mat-option [value]="match.teamB">Team B</mat-option>
                         </mat-select>
@@ -86,7 +92,8 @@
             <div class="form-section w-1/3">
                 <mat-form-field appearance="fill" class="w-full">
                     <mat-label>Number of Overs</mat-label>
-                    <input matInput type="number" [(ngModel)]="match.overs" name="overs" min="1" required (ngModelChange)="resetPhases()" />
+                    <input matInput type="number" [(ngModel)]="match.overs" name="overs" min="1" required
+                           (ngModelChange)="resetPhases()"/>
                 </mat-form-field>
             </div>
 
@@ -96,17 +103,20 @@
 
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Powerplay Overs</mat-label>
-                        <input matInput type="number" [(ngModel)]="match.phases.powerplayOvers" name="powerplayOvers" min="0" [max]="match.overs" required (ngModelChange)="validatePhases()" />
+                        <input matInput type="number" [(ngModel)]="match.phases.powerplayOvers" name="powerplayOvers"
+                               min="0" [max]="match.overs" required (ngModelChange)="validatePhases()"/>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Middle Overs</mat-label>
-                        <input matInput type="number" [(ngModel)]="match.phases.middleOvers" name="middleOvers" min="0" [max]="match.overs" required (ngModelChange)="validatePhases()" />
+                        <input matInput type="number" [(ngModel)]="match.phases.middleOvers" name="middleOvers" min="0"
+                               [max]="match.overs" required (ngModelChange)="validatePhases()"/>
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="w-full">
                         <mat-label>Death Overs</mat-label>
-                        <input matInput type="number" [(ngModel)]="match.phases.deathOvers" name="deathOvers" min="0" [max]="match.overs" required (ngModelChange)="validatePhases()" />
+                        <input matInput type="number" [(ngModel)]="match.phases.deathOvers" name="deathOvers" min="0"
+                               [max]="match.overs" required (ngModelChange)="validatePhases()"/>
                     </mat-form-field>
 
                     <p *ngIf="phaseSum !== match.overs" class="text-red-600 font-semibold">
@@ -117,33 +127,72 @@
 
             <ng-container *ngIf="battingTeamPlayers.length > 0">
                 <div class="form-section grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Opener 1 -->
                     <div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Opener 1</mat-label>
                             <mat-select [(ngModel)]="match.firstBatsman" name="firstBatsman" required>
-                                <mat-option *ngFor="let player of battingTeamPlayers" [value]="player.id" [disabled]="player.id === match.secondBatsman">
+                                <mat-option
+                                        *ngFor="let player of battingTeamPlayers"
+                                        [value]="player.id"
+                                        [disabled]="player.id === match.secondBatsman"
+                                >
                                     {{ player.name }}
-                                    <mat-icon *ngIf="playerPhasePrediction[player.id]" color="primary" inline>check_circle</mat-icon>
-                                    <mat-icon *ngIf="!playerPhasePrediction[player.id]" color="warn" inline>cancel</mat-icon>
+                                    <mat-icon
+                                            matTooltip="Predicted to perform well"
+                                            *ngIf="playerPhasePrediction[player.id]?.will_perform === 1"
+                                            color="primary"
+                                            inline
+                                    >check_circle
+                                    </mat-icon
+                                    >
+                                    <mat-icon
+                                            matTooltip="Not predicted to perform well"
+                                            *ngIf="playerPhasePrediction[player.id]?.will_perform === 0"
+                                            color="warn"
+                                            inline
+                                    >cancel
+                                    </mat-icon
+                                    >
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
 
+                    <!-- Opener 2 -->
                     <div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-label>Opener 2</mat-label>
                             <mat-select [(ngModel)]="match.secondBatsman" name="secondBatsman" required>
-                                <mat-option *ngFor="let player of battingTeamPlayers" [value]="player.id" [disabled]="player.id === match.firstBatsman">
+                                <mat-option
+                                        *ngFor="let player of battingTeamPlayers"
+                                        [value]="player.id"
+                                        [disabled]="player.id === match.firstBatsman"
+                                >
                                     {{ player.name }}
-                                    <mat-icon *ngIf="playerPhasePrediction[player.id]" color="primary" inline>check_circle</mat-icon>
-                                    <mat-icon *ngIf="!playerPhasePrediction[player.id]" color="warn" inline>cancel</mat-icon>
+                                    <mat-icon
+                                            matTooltip="Predicted to perform well"
+                                            *ngIf="playerPhasePrediction[player.id]?.will_perform === 1"
+                                            color="primary"
+                                            inline
+                                    >check_circle
+                                    </mat-icon
+                                    >
+                                    <mat-icon
+                                            matTooltip="Not predicted to perform well"
+                                            *ngIf="playerPhasePrediction[player.id]?.will_perform === 0"
+                                            color="warn"
+                                            inline
+                                    >cancel
+                                    </mat-icon
+                                    >
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
             </ng-container>
+
 
             <div class="form-actions flex justify-end gap-4">
                 <button mat-raised-button color="primary" type="submit">Create Match</button>

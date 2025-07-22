@@ -5,6 +5,7 @@ import {NgClass, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {CricketService} from '../../../services/cricket.service';
 import {CreateMatchComponent} from './create-match/create-match.component';
 import {MatchListComponent} from './match-list/match-list.component';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
     selector: 'app-match-management',
@@ -26,7 +27,8 @@ export class MatchManagementComponent implements OnInit {
     teams: any[] = [];
 
     constructor(private http: HttpClient,
-                private cricketService: CricketService,) {
+                private cricketService: CricketService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -34,4 +36,7 @@ export class MatchManagementComponent implements OnInit {
     }
 
 
+    isAdmin() {
+        return this.authService.isAdmin();
+    }
 }

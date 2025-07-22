@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {PopupService} from '../../services/popup.service';
+import {MatchListComponent} from "../admin-dashboard/match-management/match-list/match-list.component";
+import {PlayerManagementComponent} from "../admin-dashboard/player-management/player-management.component";
+import {AuthService} from "../../services/auth.service";
+import {TeamManagementComponent} from "../admin-dashboard/team-management/team-management.component";
+import {MatchManagementComponent} from "../admin-dashboard/match-management/match-management.component";
 
 @Component({
   selector: 'app-user-dashboard',
@@ -11,26 +16,29 @@ import {PopupService} from '../../services/popup.service';
   standalone: true,
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    MatchListComponent,
+    PlayerManagementComponent,
+    TeamManagementComponent,
+    MatchManagementComponent,
+    NgSwitch,
+    NgSwitchCase
   ],
 })
 export class UserDashboardComponent implements OnInit {
-  matches: any[] = [];
+  view: string = 'teams';
 
-  constructor(private http: HttpClient, private router: Router, private popupService: PopupService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.fetchMatches();
   }
 
-  fetchMatches() {
-    this.http.get<any[]>('http://localhost:5000/user/matches').subscribe({
-      next: (data) => (this.matches = data),
-      error: () => this.popupService.showPopup('Failed to fetch matches', 'error')
-    });
+  setView(view: string) {
+    this.view = view;
   }
 
-  viewMatch(matchId: number) {
-    this.router.navigate(['/match', matchId]);
+  isAdmin() {
+    return this.authService.isAdmin();
   }
+
 }

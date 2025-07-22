@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 import {CricketService} from '../../../services/cricket.service';
 import {Team} from '../../../models/team';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-team-management',
@@ -22,7 +23,8 @@ export class TeamManagementComponent implements OnInit {
   teams: Team[] = [];
 
   constructor(private http: HttpClient,
-              private cricketService: CricketService,) {}
+              private cricketService: CricketService,
+              private authService: AuthService,) {}
 
   createTeam() {
     if (!this.teamName.trim()) {
@@ -53,4 +55,9 @@ export class TeamManagementComponent implements OnInit {
       this.teams = data;
     });
   }
+
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+  
 }

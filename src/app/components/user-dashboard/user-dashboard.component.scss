@@ -1,55 +1,76 @@
 .dashboard-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-  h2 {
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1e293b; /* slate-800 */
+  color: white;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #cbd5e1; /* slate-300 */
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar-btn:hover {
+  background-color: #334155; /* slate-700 */
+}
+
+.sidebar-btn.active {
+  background-color: #0ea5e9; /* sky-500 */
+  color: white;
+  font-weight: bold;
+}
+
+/* Main content area */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Optional: Header inside content */
+.content-header {
+  margin-bottom: 20px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .sidebar-btn {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 1.8rem;
-    color: #333;
-  }
-
-  .match-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .match-card {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.2s ease;
-
-    p {
-      margin: 8px 0;
-      font-size: 1rem;
-      color: #444;
-    }
-
-    button {
-      margin-top: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
-
-    &:hover {
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-    }
+    padding: 10px;
+    font-size: 14px;
   }
 }

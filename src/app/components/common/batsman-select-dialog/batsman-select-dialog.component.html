@@ -1,7 +1,9 @@
 <h2 mat-dialog-title>Select Opening Batsmen</h2>
+
 <mat-dialog-content>
     <p class="help-text">Please choose two different batsmen.</p>
 
+    <!-- First Batsman -->
     <mat-form-field appearance="fill" class="batsman-field">
         <mat-label>First Batsman</mat-label>
         <mat-select [(value)]="selectedFirstBatsmanId">
@@ -10,11 +12,32 @@
                     [value]="player.id"
                     [disabled]="player.id === selectedSecondBatsmanId"
             >
-                {{ player.name }}
+                <div class="prediction-option">
+                    <div class="player-info">
+                        <strong>{{ player.name }}</strong>
+                        <mat-icon
+                                *ngIf="predictedBatsmen[player.id]?.will_perform === 1"
+                                color="primary"
+                        >check_circle</mat-icon
+                        >
+                        <mat-icon
+                                *ngIf="predictedBatsmen[player.id]?.will_perform === 0"
+                                color="warn"
+                        >cancel</mat-icon
+                        >
+                    </div>
+                    <div class="prediction-details" *ngIf="predictedBatsmen[player.id]">
+                        <small>
+                            Prob: {{ predictedBatsmen[player.id].probability }} |
+                            Threshold: {{ predictedBatsmen[player.id].threshold }}
+                        </small>
+                    </div>
+                </div>
             </mat-option>
         </mat-select>
     </mat-form-field>
 
+    <!-- Second Batsman -->
     <mat-form-field appearance="fill" class="batsman-field">
         <mat-label>Second Batsman</mat-label>
         <mat-select [(value)]="selectedSecondBatsmanId">
@@ -23,7 +46,27 @@
                     [value]="player.id"
                     [disabled]="player.id === selectedFirstBatsmanId"
             >
-                {{ player.name }}
+                <div class="prediction-option">
+                    <div class="player-info">
+                        <strong>{{ player.name }}</strong>
+                        <mat-icon
+                                *ngIf="predictedBatsmen[player.id]?.will_perform === 1"
+                                color="primary"
+                        >check_circle</mat-icon
+                        >
+                        <mat-icon
+                                *ngIf="predictedBatsmen[player.id]?.will_perform === 0"
+                                color="warn"
+                        >cancel</mat-icon
+                        >
+                    </div>
+                    <div class="prediction-details" *ngIf="predictedBatsmen[player.id]">
+                        <small>
+                            Prob: {{ predictedBatsmen[player.id].probability }} |
+                            Threshold: {{ predictedBatsmen[player.id].threshold }}
+                        </small>
+                    </div>
+                </div>
             </mat-option>
         </mat-select>
     </mat-form-field>

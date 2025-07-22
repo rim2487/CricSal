@@ -1,147 +1,149 @@
 <!-- Player List Display -->
 <div *ngIf="players && players.length">
-  <table mat-table [dataSource]="players" class="mat-elevation-z8" multiTemplateDataRows>
+    <table mat-table [dataSource]="players" class="mat-elevation-z8" multiTemplateDataRows>
 
-    <!-- Player Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="name-column"> Player Name </th>
-      <td mat-cell *matCellDef="let player" class="name-column"> {{ player.name }} </td>
-    </ng-container>
+        <!-- Player Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="name-column"> Player Name</th>
+            <td mat-cell *matCellDef="let player" class="name-column"> {{ player.name }}</td>
+        </ng-container>
 
-    <!-- Powerplay Stats -->
-    <ng-container matColumnDef="powerplay_runs">
-      <th mat-header-cell *matHeaderCellDef> Powerplay Runs </th>
-      <td mat-cell *matCellDef="let player"> {{ player.powerplay?.runs || 0 }} </td>
-    </ng-container>
+        <!-- Powerplay Stats -->
+        <ng-container matColumnDef="powerplay_runs">
+            <th mat-header-cell *matHeaderCellDef> Powerplay Runs</th>
+            <td mat-cell *matCellDef="let player"> {{ player.powerplay?.runs || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="powerplay_dismissals">
-      <th mat-header-cell *matHeaderCellDef> Powerplay Dismissals </th>
-      <td mat-cell *matCellDef="let player"> {{ player.powerplay?.dismissals || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="powerplay_dismissals">
+            <th mat-header-cell *matHeaderCellDef> Powerplay Dismissals</th>
+            <td mat-cell *matCellDef="let player"> {{ player.powerplay?.dismissals || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="powerplay_strike_rate">
-      <th mat-header-cell *matHeaderCellDef> Powerplay Strike Rate </th>
-      <td mat-cell *matCellDef="let player"> {{ player.powerplay?.strike_rate || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="powerplay_strike_rate">
+            <th mat-header-cell *matHeaderCellDef> Powerplay Strike Rate</th>
+            <td mat-cell *matCellDef="let player"> {{ player.powerplay?.strike_rate || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="powerplay_average">
-      <th mat-header-cell *matHeaderCellDef> Powerplay Average </th>
-      <td mat-cell *matCellDef="let player"> {{ player.powerplay?.average || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="powerplay_average">
+            <th mat-header-cell *matHeaderCellDef> Powerplay Average</th>
+            <td mat-cell *matCellDef="let player"> {{ player.powerplay?.average || 0 }}</td>
+        </ng-container>
 
-    <!-- Middle Phase Stats -->
-    <ng-container matColumnDef="middle_runs">
-      <th mat-header-cell *matHeaderCellDef> Middle Runs </th>
-      <td mat-cell *matCellDef="let player"> {{ player.middle?.runs || 0 }} </td>
-    </ng-container>
+        <!-- Middle Phase Stats -->
+        <ng-container matColumnDef="middle_runs">
+            <th mat-header-cell *matHeaderCellDef> Middle Runs</th>
+            <td mat-cell *matCellDef="let player"> {{ player.middle?.runs || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="middle_dismissals">
-      <th mat-header-cell *matHeaderCellDef> Middle Dismissals </th>
-      <td mat-cell *matCellDef="let player"> {{ player.middle?.dismissals || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="middle_dismissals">
+            <th mat-header-cell *matHeaderCellDef> Middle Dismissals</th>
+            <td mat-cell *matCellDef="let player"> {{ player.middle?.dismissals || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="middle_strike_rate">
-      <th mat-header-cell *matHeaderCellDef> Middle Strike Rate </th>
-      <td mat-cell *matCellDef="let player"> {{ player.middle?.strike_rate || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="middle_strike_rate">
+            <th mat-header-cell *matHeaderCellDef> Middle Strike Rate</th>
+            <td mat-cell *matCellDef="let player"> {{ player.middle?.strike_rate || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="middle_average">
-      <th mat-header-cell *matHeaderCellDef> Middle Average </th>
-      <td mat-cell *matCellDef="let player"> {{ player.middle?.average || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="middle_average">
+            <th mat-header-cell *matHeaderCellDef> Middle Average</th>
+            <td mat-cell *matCellDef="let player"> {{ player.middle?.average || 0 }}</td>
+        </ng-container>
 
-    <!-- Death Phase Stats -->
-    <ng-container matColumnDef="death_runs">
-      <th mat-header-cell *matHeaderCellDef> Death Runs </th>
-      <td mat-cell *matCellDef="let player"> {{ player.death?.runs || 0 }} </td>
-    </ng-container>
+        <!-- Death Phase Stats -->
+        <ng-container matColumnDef="death_runs">
+            <th mat-header-cell *matHeaderCellDef> Death Runs</th>
+            <td mat-cell *matCellDef="let player"> {{ player.death?.runs || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="death_dismissals">
-      <th mat-header-cell *matHeaderCellDef> Death Dismissals </th>
-      <td mat-cell *matCellDef="let player"> {{ player.death?.dismissals || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="death_dismissals">
+            <th mat-header-cell *matHeaderCellDef> Death Dismissals</th>
+            <td mat-cell *matCellDef="let player"> {{ player.death?.dismissals || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="death_strike_rate">
-      <th mat-header-cell *matHeaderCellDef> Death Strike Rate </th>
-      <td mat-cell *matCellDef="let player"> {{ player.death?.strike_rate || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="death_strike_rate">
+            <th mat-header-cell *matHeaderCellDef> Death Strike Rate</th>
+            <td mat-cell *matCellDef="let player"> {{ player.death?.strike_rate || 0 }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="death_average">
-      <th mat-header-cell *matHeaderCellDef> Death Average </th>
-      <td mat-cell *matCellDef="let player"> {{ player.death?.average || 0 }} </td>
-    </ng-container>
+        <ng-container matColumnDef="death_average">
+            <th mat-header-cell *matHeaderCellDef> Death Average</th>
+            <td mat-cell *matCellDef="let player"> {{ player.death?.average || 0 }}</td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>
 
 <!-- Add Player Button -->
-<div class="add-player-button-container">
-  <button mat-raised-button color="primary" (click)="showAddPlayerForm()">Add Player</button>
-</div>
+@if (isAdmin()) {
+    <div class="add-player-button-container">
+        <button mat-raised-button color="primary" (click)="showAddPlayerForm()">Add Player</button>
+    </div>
+}
 
 <!-- Add Player Modal -->
 <div *ngIf="isAddPlayerFormVisible" class="modal">
-  <div class="modal-content player-form">
-    <h3>Add Player</h3>
-    <form (ngSubmit)="addPlayer()" #playerForm="ngForm">
+    <div class="modal-content player-form">
+        <h3>Add Player</h3>
+        <form (ngSubmit)="addPlayer()" #playerForm="ngForm">
 
-      <!-- Player Name -->
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Player Name</mat-label>
-        <input matInput [(ngModel)]="newPlayer.name" name="name" required />
-      </mat-form-field>
+            <!-- Player Name -->
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Player Name</mat-label>
+                <input matInput [(ngModel)]="newPlayer.name" name="name" required/>
+            </mat-form-field>
 
-      <!-- Loop through phases -->
-      <div *ngFor="let phase of phases">
-        <h4 class="phase-header">
-          {{ phase | titlecase }} Phase
-          <span class="badge badge-green">
+            <!-- Loop through phases -->
+            <div *ngFor="let phase of phases">
+                <h4 class="phase-header">
+                    {{ phase | titlecase }} Phase
+                    <span class="badge badge-green">
             Avg: {{ newPlayer[phase + 'Average'] || 0 | number: '1.1-2' }}
           </span>
-          <span class="badge badge-blue">
+                    <span class="badge badge-blue">
             SR: {{ newPlayer[phase + 'StrikeRate'] || 0 | number: '1.1-2' }}
           </span>
-        </h4>
-        <div class="phase-grid">
-          <mat-form-field appearance="fill">
-            <mat-label>Runs</mat-label>
-            <input
-              matInput type="number"
-              [(ngModel)]="newPlayer[phase + 'Runs']"
-              name="{{ phase }}Runs"
-              (ngModelChange)="calculatePhaseStats(phase)"
-            />
-          </mat-form-field>
+                </h4>
+                <div class="phase-grid">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Runs</mat-label>
+                        <input
+                                matInput type="number"
+                                [(ngModel)]="newPlayer[phase + 'Runs']"
+                                name="{{ phase }}Runs"
+                                (ngModelChange)="calculatePhaseStats(phase)"
+                        />
+                    </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Dismissals</mat-label>
-            <input
-              matInput type="number"
-              [(ngModel)]="newPlayer[phase + 'Dismissals']"
-              name="{{ phase }}Dismissals"
-              (ngModelChange)="calculatePhaseStats(phase)"
-            />
-          </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Dismissals</mat-label>
+                        <input
+                                matInput type="number"
+                                [(ngModel)]="newPlayer[phase + 'Dismissals']"
+                                name="{{ phase }}Dismissals"
+                                (ngModelChange)="calculatePhaseStats(phase)"
+                        />
+                    </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Balls Faced</mat-label>
-            <input
-              matInput type="number"
-              [(ngModel)]="newPlayer[phase + 'BallsFaced']"
-              name="{{ phase }}BallsFaced"
-              (ngModelChange)="calculatePhaseStats(phase)"
-            />
-          </mat-form-field>
-        </div>
-      </div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Balls Faced</mat-label>
+                        <input
+                                matInput type="number"
+                                [(ngModel)]="newPlayer[phase + 'BallsFaced']"
+                                name="{{ phase }}BallsFaced"
+                                (ngModelChange)="calculatePhaseStats(phase)"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
 
-      <!-- Form Buttons -->
-      <div class="form-actions">
-        <button mat-raised-button color="primary" type="submit">Add Player</button>
-        <button mat-stroked-button type="button" (click)="closeAddPlayerForm()">Cancel</button>
-      </div>
-    </form>
-  </div>
+            <!-- Form Buttons -->
+            <div class="form-actions">
+                <button mat-raised-button color="primary" type="submit">Add Player</button>
+                <button mat-stroked-button type="button" (click)="closeAddPlayerForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
 </div>

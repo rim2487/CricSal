@@ -15,6 +15,7 @@ import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {CricketService} from "../../../services/cricket.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-player-management',
@@ -78,7 +79,8 @@ export class PlayerManagementComponent implements OnInit {
   ];
 
   constructor(private http: HttpClient,
-              private cricketService: CricketService) {
+              private cricketService: CricketService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -139,6 +141,10 @@ export class PlayerManagementComponent implements OnInit {
 
     this.newPlayer[`${phase}Average`] = dismissals > 0 ? +(runs / dismissals).toFixed(2) : 0;
     this.newPlayer[`${phase}StrikeRate`] = balls > 0 ? +((runs / balls) * 100).toFixed(2) : 0;
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin();
   }
 
 }

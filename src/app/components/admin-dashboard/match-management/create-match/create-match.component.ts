@@ -13,6 +13,7 @@ import {Team} from '../../../../models/team';
 import {PopupService} from '../../../../services/popup.service';
 import {MatIcon} from "@angular/material/icon";
 import {UtilityService} from "../../../../services/utility.service";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-create-match',
@@ -30,7 +31,8 @@ import {UtilityService} from "../../../../services/utility.service";
     MatRadioGroup,
     MatInput,
     MatLabel,
-    MatIcon
+    MatIcon,
+    MatTooltip
   ],
   templateUrl: './create-match.component.html',
   styleUrls: ['./create-match.component.scss']
@@ -42,7 +44,7 @@ export class CreateMatchComponent implements OnInit {
   matchForm: FormGroup;
   teams: Team[] = [];
   players: Player[] = [];
-  playerPhasePrediction: { [playerId: number]: boolean } = {};
+  playerPhasePrediction: { [playerId: number]: { will_perform: number, probability: number } } = {};
 
   match: Match = {
     id: 0,
@@ -94,7 +96,6 @@ export class CreateMatchComponent implements OnInit {
     });
   }
 
-  // Change method to a getter to improve change detection in template
   get battingTeamPlayers(): Player[] {
     if (!this.match.tossWinner || !this.match.tossDecision) return [];
 
@@ -233,7 +234,6 @@ export class CreateMatchComponent implements OnInit {
   }
 
   loadPhasePredictions(players: Player[]) {
-
     const features = players
         .map(player => {
           const stats = this.utilityService.getStatsForPhase(player, 0);
@@ -241,9 +241,6 @@ export class CreateMatchComponent implements OnInit {
             return {
               id: player.id,
               name: player.name,
-              average: stats,
-              strike_rate: stats.strike_rate,
-              dismissals: stats.dismissals,
               match_phase_num: 0
             };
           }
@@ -253,12 +250,23 @@ export class CreateMatchComponent implements OnInit {
 
     this.cricketService.suggestBatsman(features).subscribe({
       next: (results) => {
+        this.playerPhasePrediction = {};
+
+        Object.values(results).forEach((result: any) => {
+          const playerId = result.player_id ?? result.id;
+          this.playerPhasePrediction[playerId] = {
+            will_perform: result.will_perform,
+            probability: result.probability
+          };
+        });
+
       },
       error: () => {
         this.popupService.showPopup('Failed to get batsman predictions', 'error');
       }
     });
   }
+
 
 
 

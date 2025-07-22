@@ -1,6 +1,5 @@
 import json
 from http.client import HTTPException
-import json
 from typing import List
 
 import joblib

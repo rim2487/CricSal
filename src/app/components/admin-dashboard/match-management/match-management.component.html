@@ -1,14 +1,15 @@
 <div class="p-6 bg-white rounded-xl shadow-md max-w-xl mx-auto">
-  <div class="flex justify-end mb-4">
-    <button
-      (click)="showCreateMatch = true"
-      class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-    >
-      Create Match
-    </button>
-  </div>
+    @if (isAdmin()) {
+        <div class="flex justify-end mb-4">
+            <button
+                    (click)="showCreateMatch = true"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+                Create Match
+            </button>
+        </div>
+    }
 
-  <app-create-match *ngIf="showCreateMatch" (close)="showCreateMatch = false"></app-create-match>
-
-  <app-match-list></app-match-list>
+    <app-create-match *ngIf="showCreateMatch" (close)="showCreateMatch = false"></app-create-match>
+    <app-match-list></app-match-list>
 </div>

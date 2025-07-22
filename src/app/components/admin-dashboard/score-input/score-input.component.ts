@@ -102,7 +102,6 @@ export class ScoreInputComponent implements OnInit {
         const middleOverNumber = powerplayOverNumber + this.match.phases.middle;
         const deathOverNumber = middleOverNumber + this.match.phases.death;
 
-
         if (powerplayOverNumber) return 'POWERPLAY';
         if (powerplayOverNumber < this.currentOvers < powerplayOverNumber + middleOverNumber) return 'MIDDLE';
         if (middleOverNumber < this.currentOvers < deathOverNumber) return 'DEATH';

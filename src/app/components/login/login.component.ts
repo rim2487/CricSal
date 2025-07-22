@@ -33,11 +33,13 @@ export class LoginComponent {
           localStorage.setItem('role', this.role);
 
           if (this.role === 'admin') {
-            this.router.navigate(['/admin-dashboard']);
-            this.popupService.showPopup('Welcome Admin!', 'success');
+            this.router.navigate(['/admin-dashboard']).then(r => {
+              this.popupService.showPopup('Welcome Admin!', 'success');
+            });
           } else if (this.role === 'user') {
-            this.router.navigate(['/admin-dashboard']);
-            this.popupService.showPopup('Welcome User!', 'success');
+            this.router.navigate(['/user-dashboard']).then(r => {
+              this.popupService.showPopup('Welcome User!', 'success');
+            });
           }
         } else {
           this.popupService.showPopup('Token missing in response', 'error');

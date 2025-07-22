@@ -73,7 +73,7 @@
         <p><strong>Overs:</strong> {{ totalOvers }} </p>
         <p><strong>Status:</strong> {{ match.status | titlecase }}</p>
         <p><strong>Innings:</strong> {{ innings === 1 ? 'First Innings' : 'Second Innings' }}</p>
-        <p><strong>Phase:</strong> {{ currentPhase }}</p>
+<!--        <p><strong>Phase:</strong> {{ this.currentPhase }}</p>-->
       </section>
 
       <section *ngIf="batsmen.length > 0" class="batsmen-display" aria-label="Current batsmen">
